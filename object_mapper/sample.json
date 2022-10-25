@@ -1,0 +1,16 @@
+{
+  "name":"권용휘",
+  "age":27,
+  "car_list":[
+    {
+      "name":"K5",
+      "car_number":"11가11111",
+      "TYPE":"세단"
+    },
+    {
+      "name":"Q5",
+      "car_number":"11가3333",
+      "TYPE":"SUV"
+    }
+  ]
+}
