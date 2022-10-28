@@ -10,6 +10,7 @@
 6. [object-mapper](#6_ocject-mapper)
 7. [IOC-DI](#7_IOC-DI)
 8. [Sping-ioc](#8_spring-ioc)
+9. [aop](#9_aop)
 ---
 ### Annotation 정리
 - Controller
@@ -77,4 +78,17 @@
   - 클래스명대로 bean에 자동적으로 이름이 등록되지만 @Component("다른이름")으로 등록해서 다른이름으로 사용할 수 있음.
 - @Qulifier
   - bean에 등록된 이름을 불러오는 어노테이션
-  - public Encoder(@Qualifier("base74Encoder") IEncoder iEncoder) 와 같이 
+  - public Encoder(@Qualifier("base74Encoder") IEncoder iEncoder) 와 같이 사용.
+- @Configuration
+  - bean을 여러개 등록하고 싶을 때 사용
+  - ![image](https://user-images.githubusercontent.com/82923905/198556761-0505db5c-f516-4b23-971a-fb20126ee449.png)
+
+---
+## 9_aop
+###### aop 프로젝트에서 확인 가능.
+- 각 메소드마다 똑같이 들어가는 코드를 작성하면 코드 지저분하니 aop 사용하기 (코드 재활용)
+- 메소드 시작과 끝에 변수, 리턴값들이 잘 작동되나 확인같은게 하고 싶을 때
+- gradle 에 implementation 'org.springframework.boot:spring-boot-starter-aop' 삽입
+- 해당 클래스에 @Aspect, @Component 작성해 줘야 함.
+- 자세한 사용법 및 어노테이션 활용은 com.example.aop.aop.Parameter.java 확인
+- annotation을 직접 만들어서 사용 -> com.example.aop.aop.DecodeAop.java + com.example.aop.annotatioin.Decode확인 
