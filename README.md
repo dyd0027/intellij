@@ -8,7 +8,8 @@
 4. [delete](#4_delete)
 5. [response](#5_response)
 6. [object-mapper](#6_ocject-mapper)
-
+7. [IOC-DI](#7_IOC-DI)
+8. [Sping-ioc](#8_spring-ioc)
 ---
 ### Annotation 정리
 - Controller
@@ -60,3 +61,20 @@
 ## 6_ocject-mapper
 ###### ocject-mapper 프로젝트에서 확인 가능.
 - text -> object // object -> text를 바꿔주는 연습
+
+---
+## 7_IOC-DI
+###### ioc 프로젝트에서 확인 가능.
+- spring 컨테이너 안에 bean들을 저장해두어 spring이 객체를 직접 관리하는 것을 IoC라고 함.
+- spring이 제어하는 권한을 가져갔지 때문에 IoC라고 함.
+- spring이 주는것을 나는 주입을 받으니깐 DI라고 함
+
+---
+## 8_spring-ioc
+###### spring-ioc 프로젝트에서 확인 가능.
+- @Component
+  - Spring에서 자동적으로 bean으로 관리해 달라고 요청하는 어노테이션. 
+  - 클래스명대로 bean에 자동적으로 이름이 등록되지만 @Component("다른이름")으로 등록해서 다른이름으로 사용할 수 있음.
+- @Qulifier
+  - bean에 등록된 이름을 불러오는 어노테이션
+  - public Encoder(@Qualifier("base74Encoder") IEncoder iEncoder) 와 같이 
