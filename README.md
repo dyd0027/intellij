@@ -11,6 +11,8 @@
 7. [IOC-DI](#7_IOC-DI)
 8. [Sping-ioc](#8_spring-ioc)
 9. [aop](#9_aop)
+10. [validation](#10_validation)
+11. [exception](#11_exception)
 ---
 ### Annotation 정리
 - Controller
@@ -92,3 +94,17 @@
 - 해당 클래스에 @Aspect, @Component 작성해 줘야 함.
 - 자세한 사용법 및 어노테이션 활용은 com.example.aop.aop.Parameter.java 확인
 - annotation을 직접 만들어서 사용 -> com.example.aop.aop.DecodeAop.java + com.example.aop.annotatioin.Decode확인 
+
+---
+## 10_validation
+###### validation 프로젝트에서 확인 가능.
+- client가 변수를 보낼 때 정규식에 맞지않거나 or null값 등을 보낼 때 바로 exception해주는 annotion
+- 자세한 사용법 및 어노테이션 활용은 com.example.validation.dto.Car or User 확인
+- @Max, @Email, @Min, @NotBlank 같은 어노테이션이 있지만 내가 마음에 드는 어노테이션이 없는경우 직접 만들어서 사용 가능
+- annotation을 직접 만들어서 사용 -> com.example.validation.validator + com.example.aop.annotatioin확인 
+
+
+---
+## 11_exception
+###### exception 프로젝트에서 확인 가능.
+
