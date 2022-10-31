@@ -64,7 +64,7 @@ public class CalculatorApiControllerTest {
                 // dept가 없는 경우
                 MockMvcResultMatchers.jsonPath("$.result").value("0")
         ).andExpect(
-                // dept가 있는 경우
+                // dept가 있 는 경우
                 MockMvcResultMatchers.jsonPath("$.response.resultCode").value("OK")
         ).andDo(MockMvcResultHandlers.print());
     }
