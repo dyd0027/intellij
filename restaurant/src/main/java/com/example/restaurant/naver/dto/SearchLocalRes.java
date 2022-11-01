@@ -14,7 +14,6 @@ public class SearchLocalRes {
     private int total;
     private int start;
     private int display;
-    private String category;
     private List<SearchLocalItem> items;
     @Data
     @AllArgsConstructor
@@ -26,6 +25,7 @@ public class SearchLocalRes {
         private String telephone;
         private String address;
         private String roadAddress;
+        private String category;
         private int mapx;
         private int mapy;
     }
