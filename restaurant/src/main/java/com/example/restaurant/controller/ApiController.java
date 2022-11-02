@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Slf4j
@@ -30,4 +31,14 @@ public class ApiController {
         public List<WishListDto> findAll(){
                 return wishListService.findAll();
         }
+        @DeleteMapping("/{index}")
+        public void delete(@PathVariable int index){
+                wishListService.delete(index);
+        }
+        @PostMapping("/{index}")
+        public void addVisit(@PathVariable int index){
+                wishListService.addVisit(index);
+        }
+
+
 }
