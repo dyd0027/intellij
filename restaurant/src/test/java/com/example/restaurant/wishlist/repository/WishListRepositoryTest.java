@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.lang.annotation.Target;
-
 @SpringBootTest
 public class WishListRepositoryTest {
     @Autowired
@@ -20,7 +18,7 @@ public class WishListRepositoryTest {
         wishList.setHomePageLink("homepage");
         wishList.setImageLink("imagelink");
         wishList.setVisitCount(0);
-        wishList.setReadAddress("readAd");
+        wishList.setRoadAddress("readAd");
         wishList.setVisit(false);
         wishList.setLastVisitDate(null);
         return wishList;
