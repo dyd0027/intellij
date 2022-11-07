@@ -16,6 +16,6 @@ class UserTest {
         User allArg = new User("권용휘","self@naver.com", LocalDateTime.now(),LocalDateTime.now());
 
         User requierdArg = new User("권용","ef@nav.ercom");
-        
+
     }
 }
