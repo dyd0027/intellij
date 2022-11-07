@@ -13,6 +13,8 @@
 9. [aop](#9_aop)
 10. [validation](#10_validation)
 11. [exception](#11_exception)
+12. [filter](#12_filter)
+13. [interceptor](#13_interceptor)
 ---
 ### Annotation 정리
 - Controller
@@ -110,3 +112,16 @@
 - 특정 오류의 class들만 잡아 줄수도 있음.
 - 오류가나는 메소드가 있는 컨트롤러에서 오류를 잡을 경우 광역으로 잡는거보다 우선순위.
 - 하나의 틀만 만들어 놓으면 광대하게 사용할 수 있는 장점이 있음.
+
+---
+## 12_filter
+###### filter 프로젝트에서 확인 가능.
+- web application에서 관리되는 영역으로 요청/응답에 대하여 최초/최동 단계에 위치.
+- filter -> interceptor -> aop 순으로 요청 감.
+- 전처리가 아닌 후처리에 (doFilter기준) 데이터를 뽑을 수 있음.
+
+---
+## 13_interceptor
+###### interceptor 프로젝트에서 확인 가능.
+- filter와 매우 유사하지만 차이점은 sping context에 등록이 된다.
+- 주로 인증 단계를 처리할 때 사용.
