@@ -15,6 +15,10 @@
 11. [exception](#11_exception)
 12. [filter](#12_filter)
 13. [interceptor](#13_interceptor)
+14. [client(generic으로 변수 주고 받기)](#14_client)
+15. [JUnit](#15_JUnit)
+16. [swagger](#16_swagger)]
+17. [restaurant](#17_restaurant)
 ---
 ### Annotation 정리
 - Controller
@@ -125,3 +129,44 @@
 ###### interceptor 프로젝트에서 확인 가능.
 - filter와 매우 유사하지만 차이점은 sping context에 등록이 된다.
 - 주로 인증 단계를 처리할 때 사용.
+ 
+---
+## 14_client
+###### client 프로젝트에서 확인 가능.
+- client와 server에서 json 형태를 어떻게 주고 받을지 충분한 회의를 갖춘 후 그거에 맞게 rest-templete 작성하기 예시.
+- 변수를 generic으로 주고 받기.
+  
+---
+## 15_JUnit
+###### calculator, spring-calculator 프로젝트에서 확인 가능.
+- JUnit: Java기반의 단위테스트를 위한 프레임워크.
+- annotation 기반으로 테스트를 지원하며 Assert를 통하여 예상, 실제를 통해 검증.
+- Mock: 실제 api 호출하면 값이 바뀔 수 있으니 init할 때 내가 return값을 임의로 지정할 수 있음.
+
+---
+## 16_swagger
+###### swagger 프로젝트에서 확인 가능.
+- swagger: 개발한 rest api를 편리하게 문서화 해주고, 이를 통해서 관리 밑 제3의 사용자가 편리하게 api를 호출해보고 테스트 할 수 있는 프로젝트.
+- spring boot에서는 간단하게 gradle에 의존성 주입만 시켜주면 사용할 수 있다.
+  
+---
+## 17_restaurant
+#### 네이버 지도 OPEN API를 사용하여 간단하게 맛집을 검색해볼 수 있다. 해당 맛집을 위시리스트에 저장, 삭제하고 방문횟수를 카운트 하기.
+- 개발 환경
+  - Java11
+  - IntelliJ
+  - Spring Boot
+  - OPEN API
+- 실행 결과
+  - 초기화면
+  ![image](https://user-images.githubusercontent.com/82923905/200270037-e3d39ea5-1af3-4b4e-8a34-6a63bd3ca931.png)
+  - 검색
+  ![image](https://user-images.githubusercontent.com/82923905/200270694-d85bb2ce-e7b9-4c32-8528-c41faf90021f.png)
+  - 위시리스트 추가
+  ![image](https://user-images.githubusercontent.com/82923905/200270782-e84a8a06-dc1a-4d78-8990-ef86442c17bc.png)
+  - 방문횟수 추가
+  ![image](https://user-images.githubusercontent.com/82923905/200270973-44fa125c-243c-4d05-9afd-8a9d548e9039.png)
+  - 위시리스트 삭제
+
+  
+  
