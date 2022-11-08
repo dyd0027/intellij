@@ -14,8 +14,8 @@ class UserTest {
         user.setEmail("sh@naver.com");
 
         User allArg = new User(null,"권용휘","self@naver.com", LocalDateTime.now(),LocalDateTime.now());
-
+        System.out.println(allArg);
         User requierdArg = new User("권용","ef@nav.ercom");
-
+        System.out.println(requierdArg);
     }
 }
