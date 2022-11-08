@@ -79,4 +79,14 @@ class UserRepositoryTest {
         example = Example.of(new User("yh","naver.com"));
         userRepository.findAll(example).forEach(System.out::println);
     }
+
+    @Test
+    void update(){
+        User user = new User("향뚱","sohee@naver.com");
+        userRepository.save(user);
+        user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user.setEmail("updateEmail@naver.com");
+        userRepository.save(user);
+        userRepository.findAll().forEach(System.out::println);
+    }
 }
