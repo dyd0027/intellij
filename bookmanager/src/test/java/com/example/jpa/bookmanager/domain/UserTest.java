@@ -13,7 +13,7 @@ class UserTest {
         user.setName("김소희");
         user.setEmail("sh@naver.com");
 
-        User allArg = new User("권용휘","self@naver.com", LocalDateTime.now(),LocalDateTime.now());
+        User allArg = new User(null,"권용휘","self@naver.com", LocalDateTime.now(),LocalDateTime.now());
 
         User requierdArg = new User("권용","ef@nav.ercom");
 
