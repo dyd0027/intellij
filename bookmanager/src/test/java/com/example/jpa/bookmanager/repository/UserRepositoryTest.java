@@ -92,18 +92,32 @@ class UserRepositoryTest {
 
     @Test
     void select(){
-        System.out.println(userRepository.findByName("yh"));
-        System.out.println("findByEmail: "+userRepository.findByEmail("self0027@naver.com"));
-        System.out.println("getByEmail: "+userRepository.getByEmail("self0027@naver.com"));
-        System.out.println("readByEmail: "+userRepository.readByEmail("self0027@naver.com"));
-        System.out.println("queryByEmail: "+userRepository.queryByEmail("self0027@naver.com"));
-        System.out.println("searchByEmail: "+userRepository.searchByEmail("self0027@naver.com"));
-        System.out.println("streamByEmail: "+userRepository.streamByEmail("self0027@naver.com"));
-        System.out.println("findUserByEmail: "+userRepository.findUserByEmail("self0027@naver.com"));
+//        System.out.println(userRepository.findByName("yh"));
+//        System.out.println("findByEmail: "+userRepository.findByEmail("self0027@naver.com"));
+//        System.out.println("getByEmail: "+userRepository.getByEmail("self0027@naver.com"));
+//        System.out.println("readByEmail: "+userRepository.readByEmail("self0027@naver.com"));
+//        System.out.println("queryByEmail: "+userRepository.queryByEmail("self0027@naver.com"));
+//        System.out.println("searchByEmail: "+userRepository.searchByEmail("self0027@naver.com"));
+//        System.out.println("streamByEmail: "+userRepository.streamByEmail("self0027@naver.com"));
+//        System.out.println("findUserByEmail: "+userRepository.findUserByEmail("self0027@naver.com"));
+//
+//        System.out.println("findSomethingByEmail: "+userRepository.findSomethingByEmail("self0027@naver.com"));
+//
+//        System.out.println("findFirst1ByEmail: "+userRepository.findFirst2ByEmail("self0027@naver.com"));
+//        System.out.println("findTop1ByEmail(: "+userRepository.findTop2ByEmail("self0027@naver.com"));
 
-        System.out.println("findSomethingByEmail: "+userRepository.findSomethingByEmail("self0027@naver.com"));
+        System.out.println("findByEmailAndName: "+userRepository.findByEmailAndName("self0027@naver.com","yh"));
+        System.out.println("findByOrAndName: "+userRepository.findByEmailOrName("self0027@naver.com","yong"));
 
-        System.out.println("findFirst1ByEmail: "+userRepository.findFirst2ByEmail("self0027@naver.com"));
-        System.out.println("findTop1ByEmail(: "+userRepository.findTop2ByEmail("self0027@naver.com"));
+        System.out.println("findByCreatedAtAfter: "+userRepository.findByCreatedAtAfter(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByIdAfter: "+userRepository.findByIdAfter(3L));
+
+        System.out.println("findByCreatedAtGreaterThan: "+userRepository.findByCreatedAtGreaterThan(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByCreatedAtGreaterThanEqual: "+userRepository.findByCreatedAtGreaterThanEqual(LocalDateTime.now().minusDays(1L) ));
+
+        System.out.println("findByCreatedAtBetween: "+userRepository.findByCreatedAtBetween(LocalDateTime.now().minusDays(1L),LocalDateTime.now().plusDays(1L)));
+        System.out.println("findByIdBetween: "+userRepository.findByIdBetween( 1L,4L));
+        System.out.println("findByIdGreaterThanEqualAndLessThan: "+userRepository.findByIdGreaterThanEqualAndIdLessThan( 1L,4L));
+
     }
 }
