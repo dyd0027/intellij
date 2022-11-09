@@ -92,7 +92,10 @@ class UserRepositoryTest {
 
     @Test
     void select(){
+          //Is와 Equal은 가독성을 위해 붙히지 아무 상관 없음
 //        System.out.println(userRepository.findByName("yh"));
+//        System.out.println(userRepository.findByNameIs("yh"));
+//        System.out.println(userRepository.findByNameEqual("yh"));
 //        System.out.println("findByEmail: "+userRepository.findByEmail("self0027@naver.com"));
 //        System.out.println("getByEmail: "+userRepository.getByEmail("self0027@naver.com"));
 //        System.out.println("readByEmail: "+userRepository.readByEmail("self0027@naver.com"));
@@ -108,16 +111,28 @@ class UserRepositoryTest {
 
         System.out.println("findByEmailAndName: "+userRepository.findByEmailAndName("self0027@naver.com","yh"));
         System.out.println("findByOrAndName: "+userRepository.findByEmailOrName("self0027@naver.com","yong"));
-
+        // After: 초과값 >
         System.out.println("findByCreatedAtAfter: "+userRepository.findByCreatedAtAfter(LocalDateTime.now().minusDays(1L)));
         System.out.println("findByIdAfter: "+userRepository.findByIdAfter(3L));
-
+        // GreaterThan: 초과값 >
+        // GreaterThanEqual: 이상 >=
         System.out.println("findByCreatedAtGreaterThan: "+userRepository.findByCreatedAtGreaterThan(LocalDateTime.now().minusDays(1L)));
         System.out.println("findByCreatedAtGreaterThanEqual: "+userRepository.findByCreatedAtGreaterThanEqual(LocalDateTime.now().minusDays(1L) ));
-
+        //between: < > 초과값
+        //findByIdGreaterThanEqualAndLessThan: 이상, 이하값
         System.out.println("findByCreatedAtBetween: "+userRepository.findByCreatedAtBetween(LocalDateTime.now().minusDays(1L),LocalDateTime.now().plusDays(1L)));
         System.out.println("findByIdBetween: "+userRepository.findByIdBetween( 1L,4L));
         System.out.println("findByIdGreaterThanEqualAndLessThan: "+userRepository.findByIdGreaterThanEqualAndIdLessThan( 1L,4L));
+        //값이 null이 아닌 값 가져오기
+        System.out.println("findByIdIsNotNull: "+userRepository.findByIdIsNotNull());
+//        System.out.println("findByAddressIsNotEmpty: "+userRepository.findByAddressIsNotEmpty());
+        //In절
+        System.out.println("findByNameIn: "+userRepository.findByNameIn(Lists.newArrayList("yh","yong")));
+        //like 검색 -> 마지막 함수는 %를 넣어서 검색
+        System.out.println("findByNameStartingWith: "+userRepository.findByNameStartingWith("on"));
+        System.out.println("findByNameEndingWith: "+userRepository.findByNameEndingWith("on"));
+        System.out.println("findByNameContains: "+userRepository.findByNameContains("on"));
+        System.out.println("findByNameLike: "+userRepository.findByNameLike("%on%"));
 
     }
 }
