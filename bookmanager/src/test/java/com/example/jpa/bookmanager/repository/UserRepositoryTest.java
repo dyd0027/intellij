@@ -135,4 +135,14 @@ class UserRepositoryTest {
         System.out.println("findByNameLike: "+userRepository.findByNameLike("%on%"));
 
     }
+    @Test
+    void PagingAndSortingTest(){
+        //Sort
+        System.out.println("findTop1ByName: "+userRepository.findTop1ByName("yh"));
+        System.out.println("findTop1ByNameOrderByIdDesc: "+userRepository.findTop1ByNameOrderByIdDesc("yh"));
+        // OrderBy 같은 경우 내가 원하는 조건을 and나or없이 그냥 적어줌.
+        System.out.println("findFirstByNameOrderByIdDescEmailAsc: "+userRepository.findFirstByNameOrderByIdDescEmailAsc("yh"));
+        //Sort의 조건이 길어지면 메소드 명이 길어지니 밑에 메소드와같이 매개변수로 Sort를 넣어준다.
+        System.out.println("findFirstByNameWithSortParam: "+userRepository.findFirstByName("yh",Sort.by(Sort.Order.desc("id"),Sort.Order.asc("email"))));
+    }
 }

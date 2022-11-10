@@ -1,6 +1,7 @@
 package com.example.jpa.bookmanager.repository;
 
 import com.example.jpa.bookmanager.domain.User;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
@@ -8,8 +9,8 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User,Long> {
     List<User> findByName(String name);
-    List<User> findByNameIs(String name);
-    List<User> findByNameEqual(String name);
+//    List<User> findByNameIs(String name);
+//    List<User> findByNameEqual(String name);
     User findByEmail(String email);
     User getByEmail(String email);
     User readByEmail(String email);
@@ -36,4 +37,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
     List<User> findByNameEndingWith(String name);
     List<User> findByNameContains(String name);
     List<User> findByNameLike(String name);
+    List<User> findTop1ByName(String name);
+    List<User> findTop1ByNameOrderByIdDesc(String name);
+    List<User> findFirstByNameOrderByIdDescEmailAsc(String name);
+    List<User> findFirstByName(String name, Sort sort);
 }
