@@ -144,5 +144,7 @@ class UserRepositoryTest {
         System.out.println("findFirstByNameOrderByIdDescEmailAsc: "+userRepository.findFirstByNameOrderByIdDescEmailAsc("yh"));
         //Sort의 조건이 길어지면 메소드 명이 길어지니 밑에 메소드와같이 매개변수로 Sort를 넣어준다.
         System.out.println("findFirstByNameWithSortParam: "+userRepository.findFirstByName("yh",Sort.by(Sort.Order.desc("id"),Sort.Order.asc("email"))));
+        System.out.println("findByNameWithPaging: "+userRepository.findByName("yh",PageRequest.of(0,1,Sort.by(Sort.Order.asc("id")))).getContent());
+
     }
 }
