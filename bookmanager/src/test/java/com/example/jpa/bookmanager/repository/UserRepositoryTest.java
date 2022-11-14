@@ -1,5 +1,6 @@
 package com.example.jpa.bookmanager.repository;
 
+import com.example.jpa.bookmanager.domain.Gender;
 import com.example.jpa.bookmanager.domain.User;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
@@ -146,5 +147,24 @@ class UserRepositoryTest {
         System.out.println("findFirstByNameWithSortParam: "+userRepository.findFirstByName("yh",Sort.by(Sort.Order.desc("id"),Sort.Order.asc("email"))));
         System.out.println("findByNameWithPaging: "+userRepository.findByName("yh",PageRequest.of(0,1,Sort.by(Sort.Order.asc("id")))).getContent());
 
+    }
+    @Test
+    void insertAndUpdateTest(){
+        User user = new User();
+        user.setName("yh");
+        user.setEmail("sss@namver.com");
+        userRepository.save(user);
+
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user2.setName("yyyyyyyg");
+        userRepository.save(user2);
+    }
+    @Test
+    void enumTest(){
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user.setGender(Gender.MALE);
+        userRepository.save(user);
+        userRepository.findAll().forEach(System.out::println);
+        System.out.println(userRepository.findRawRecord().get("gender"));
     }
 }
