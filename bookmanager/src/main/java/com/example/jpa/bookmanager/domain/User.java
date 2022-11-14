@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor // @NonNull이라고 적힌 변수들로만 이루어진 생성자 만들 수 있음.
 @Builder
 @Entity  // Id가 꼭 필요함
-@Table(name="users") //table이름 바꿈
+@Table(name="users",indexes = {@Index(columnList = "name")},uniqueConstraints = {@UniqueConstraint(columnNames = "email")}) // table이름 바꿈,name으로 index만듦,email에 유니크값 넣어줌
 public class User {
     @Id // pk임
     @GeneratedValue // 자동적으로 순차적으로 값이 증가 함
