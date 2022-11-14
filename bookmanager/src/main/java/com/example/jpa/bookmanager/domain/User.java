@@ -35,5 +35,35 @@ public class User {
 //    @OneToMany(fetch = FetchType.EAGER)
 //    private List<Address> address;
     @Enumerated(value = EnumType.STRING) // String으로 안하면 Gender에 명시해 준 순서대로 0부터 나와서 저장이 됨.->이건 잠재적버그일으킴
-    private Gender gender; 
+    private Gender gender;
+
+    @PrePersist
+    public void prePersist(){
+        this.setCreatedAt(LocalDateTime.now());
+        this.setUpdatedAt(LocalDateTime.now());
+    }
+    @PostPersist
+    public void postPersist(){
+        System.out.println(">>>>>>>postPersist");
+    }
+    @PreUpdate
+    public void preUpdate(){
+        this.setUpdatedAt(LocalDateTime.now());
+    }
+    @PostUpdate
+    public void postUpdate(){
+        System.out.println(">>>>>>>postUpdate");
+    }
+    @PreRemove
+    public void preRemove(){
+        System.out.println(">>>>>>>preRemove");
+    }
+    @PostRemove
+    public void postRemove(){
+        System.out.println(">>>>>>>postRemove");
+    }
+    @PostLoad
+    public void postLoad(){
+        System.out.println(">>>>>>>postLoad");
+    }
 }

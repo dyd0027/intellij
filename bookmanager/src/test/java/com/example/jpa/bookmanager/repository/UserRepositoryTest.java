@@ -167,4 +167,35 @@ class UserRepositoryTest {
         userRepository.findAll().forEach(System.out::println);
         System.out.println(userRepository.findRawRecord().get("gender"));
     }
+    @Test
+    void listenerTest(){
+        User user = new User();
+        user.setEmail("serser@dnd.com");
+        user.setName("yyyh");
+        userRepository.save(user);
+
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user2.setEmail("efefe@naver.com");
+        user2.setName("yh2");
+        userRepository.save(user2);
+
+        userRepository.deleteById(4L);
+    }
+    @Test
+    void prePersistTest(){
+        User user = new User();
+        user.setEmail("serser@dnd.com");
+        user.setName("yyyh");
+        userRepository.save(user);
+        System.out.println(userRepository.findByEmail("serser@dnd.com"));
+    }
+    @Test
+    void preUpdateTest(){
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        System.out.println(user2);
+        user2.setEmail("efefe@naver.com");
+        user2.setName("yh2");
+        userRepository.save(user2);
+        System.out.println(userRepository.findByEmail("efefe@naver.com"));
+    }
 }
