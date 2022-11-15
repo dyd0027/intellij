@@ -14,7 +14,8 @@ import java.util.List;
 @Builder
 @Entity  // Id가 꼭 필요함
 @Table(name="users",indexes = {@Index(columnList = "name")},uniqueConstraints = {@UniqueConstraint(columnNames = "email")}) // table이름 바꿈,name으로 index만듦,email에 유니크값 넣어줌
-public class User {
+@EntityListeners(value = MyEntityListener.class)
+public class User implements Auditable{
     @Id // pk임
     @GeneratedValue // 자동적으로 순차적으로 값이 증가 함
     private Long id;
@@ -37,33 +38,33 @@ public class User {
     @Enumerated(value = EnumType.STRING) // String으로 안하면 Gender에 명시해 준 순서대로 0부터 나와서 저장이 됨.->이건 잠재적버그일으킴
     private Gender gender;
 
-    @PrePersist
-    public void prePersist(){
-        this.setCreatedAt(LocalDateTime.now());
-        this.setUpdatedAt(LocalDateTime.now());
-    }
-    @PostPersist
-    public void postPersist(){
-        System.out.println(">>>>>>>postPersist");
-    }
-    @PreUpdate
-    public void preUpdate(){
-        this.setUpdatedAt(LocalDateTime.now());
-    }
-    @PostUpdate
-    public void postUpdate(){
-        System.out.println(">>>>>>>postUpdate");
-    }
-    @PreRemove
-    public void preRemove(){
-        System.out.println(">>>>>>>preRemove");
-    }
-    @PostRemove
-    public void postRemove(){
-        System.out.println(">>>>>>>postRemove");
-    }
-    @PostLoad
-    public void postLoad(){
-        System.out.println(">>>>>>>postLoad");
-    }
+//    @PrePersist
+//    public void prePersist(){
+//        this.setCreatedAt(LocalDateTime.now());
+//        this.setUpdatedAt(LocalDateTime.now());
+//    }
+//    @PostPersist
+//    public void postPersist(){
+//        System.out.println(">>>>>>>postPersist");
+//    }
+//    @PreUpdate
+//    public void preUpdate(){
+//        this.setUpdatedAt(LocalDateTime.now());
+//    }
+//    @PostUpdate
+//    public void postUpdate(){
+//        System.out.println(">>>>>>>postUpdate");
+//    }
+//    @PreRemove
+//    public void preRemove(){
+//        System.out.println(">>>>>>>preRemove");
+//    }
+//    @PostRemove
+//    public void postRemove(){
+//        System.out.println(">>>>>>>postRemove");
+//    }
+//    @PostLoad
+//    public void postLoad(){
+//        System.out.println(">>>>>>>postLoad");
+//    }
 }
