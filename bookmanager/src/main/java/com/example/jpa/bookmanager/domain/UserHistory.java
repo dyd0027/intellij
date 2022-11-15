@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 //@EntityListeners(value = AuditingEntityListener.class)
-public class UserHistory extends BaseEntity implements Auditable {
+public class UserHistory extends BaseEntity {
     @Id // pk임
     @GeneratedValue // 자동적으로 순차적으로 값이 증가 함
     private Long id;
