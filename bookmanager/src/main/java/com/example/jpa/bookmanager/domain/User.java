@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @EntityListeners(value = {/*AuditingEntityListener.class,*/ UserEntityListener.class})
 public class User extends BaseEntity {
     @Id // pk임
-    @GeneratedValue // 자동적으로 순차적으로 값이 증가 함
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동적으로 순차적으로 값이 증가 함
     private Long id;
 
     @NonNull

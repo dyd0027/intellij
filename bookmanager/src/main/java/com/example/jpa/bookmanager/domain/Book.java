@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 //@EntityListeners(value = AuditingEntityListener.class)
 public class Book extends BaseEntity{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -28,6 +28,10 @@ public class Book extends BaseEntity{
     private Long publisherId;
 
     private String category;
+
+    @OneToOne(mappedBy = "book") // 이러면 해당 필드가 생성되지 않지만 확인은 할 수 있음.
+    @ToString.Exclude
+    private BookReviewInfo bookReviewInfo;
 //    @CreatedDate
 //    private LocalDateTime createdAt;
 //    @LastModifiedDate
