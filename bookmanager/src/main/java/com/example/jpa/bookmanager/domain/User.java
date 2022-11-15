@@ -1,21 +1,27 @@
 package com.example.jpa.bookmanager.domain;
 
+import com.example.jpa.bookmanager.domain.listener.Auditable;
+import com.example.jpa.bookmanager.domain.listener.UserEntityListener;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @AllArgsConstructor
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @RequiredArgsConstructor // @NonNull이라고 적힌 변수들로만 이루어진 생성자 만들 수 있음.
 @Builder
 @Entity  // Id가 꼭 필요함
 @Table(name="users",indexes = {@Index(columnList = "name")},uniqueConstraints = {@UniqueConstraint(columnNames = "email")}) // table이름 바꿈,name으로 index만듦,email에 유니크값 넣어줌
-@EntityListeners(value = MyEntityListener.class)
-public class User implements Auditable{
+@EntityListeners(value = {/*AuditingEntityListener.class,*/ UserEntityListener.class})
+public class User extends BaseEntity implements Auditable {
     @Id // pk임
     @GeneratedValue // 자동적으로 순차적으로 값이 증가 함
     private Long id;
@@ -27,9 +33,11 @@ public class User implements Auditable{
     private String email;
 //    @Column(name ="credat",unique = true,nullable = false) 이런식으로 컬럼 속성 수정 가능. 더 많은 내용이 있으니 인터페이스 확인.
 //    @Column(updatable = false)  update시 이 친구는 반영 안됨
-    private LocalDateTime createdAt;
+//    @CreatedDate
+//    private LocalDateTime createdAt;
 //    @Column(insertable = false) insert시 이 친구는 반영 안됨
-    private LocalDateTime updatedAt;
+//    @LastModifiedDate
+//    private LocalDateTime updatedAt;
 //    @Transient DB에는 실반영이 안되게 해줌.
 //    private String testData;
 
