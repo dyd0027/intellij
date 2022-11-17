@@ -10,6 +10,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @Data
@@ -19,12 +21,16 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor // @NonNull이라고 적힌 변수들로만 이루어진 생성자 만들 수 있음.
 @Builder
 @Entity  // Id가 꼭 필요함
-@Table(name="users",indexes = {@Index(columnList = "name")},uniqueConstraints = {@UniqueConstraint(columnNames = "email")}) // table이름 바꿈,name으로 index만듦,email에 유니크값 넣어줌
-@EntityListeners(value = {/*AuditingEntityListener.class,*/ UserEntityListener.class})
+@Table(name="users"/*,indexes = {@Index(columnList = "name")},uniqueConstraints = {@UniqueConstraint(columnNames = "email")}*/) // table이름 바꿈,name으로 index만듦,email에 유니크값 넣어줌
+@EntityListeners(value = {UserEntityListener.class})
 public class User extends BaseEntity {
     @Id // pk임
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동적으로 순차적으로 값이 증가 함
     private Long id;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id",insertable = false,updatable = false) // userHistory테이블에서 userId로 FK생성됨,user테이블은 insert와 update 할 때 userHistory에 간섭x
+    private List<UserHistory> userHistories = new ArrayList<>();
 
     @NonNull
     private String name;

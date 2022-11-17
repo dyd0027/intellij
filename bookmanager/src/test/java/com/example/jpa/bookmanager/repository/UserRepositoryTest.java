@@ -2,6 +2,7 @@ package com.example.jpa.bookmanager.repository;
 
 import com.example.jpa.bookmanager.domain.Gender;
 import com.example.jpa.bookmanager.domain.User;
+import com.example.jpa.bookmanager.domain.UserHistory;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,5 +212,28 @@ class UserRepositoryTest {
         userRepository.save(user);
 
         userHistoryRepository.findAll().forEach(System.out::println);
+    }
+
+    @Test
+    void userRelationTest(){
+        User user = new User();
+        user.setName("dydgnl");
+        user.setEmail("dynl0027@gmail.com");
+        user.setGender(Gender.MALE);
+        userRepository.save(user);
+
+        user.setName("newdydgnl");
+        userRepository.save(user);
+
+        user.setEmail("newdydgnl@mainl.com");
+        userRepository.save(user);
+
+        userHistoryRepository.findAll().forEach(System.out::println);
+//        List<UserHistory> userHistories = userHistoryRepository.findByUserId(
+//                userRepository.findByEmail("newdydgnl@mainl.com").getId()
+//        );
+        //위에 주석을 간다하게 할 수 있음.
+        List<UserHistory> userHistories = userRepository.getByEmail("newdydgnl@mainl.com").getUserHistories();
+        userHistories.forEach(System.out::println);
     }
 }
