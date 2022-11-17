@@ -8,6 +8,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -25,13 +27,22 @@ public class Book extends BaseEntity{
 
     private Long authorId;
 
-    private Long publisherId;
+//    private Long publisherId;
 
     private String category;
 
     @OneToOne(mappedBy = "book") // 이러면 해당 필드가 생성되지 않지만 확인은 할 수 있음.
     @ToString.Exclude
     private BookReviewInfo bookReviewInfo;
+
+    @OneToMany
+    @JoinColumn(name = "book_id")
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
+
+    @ManyToOne
+    @ToString.Exclude
+    private Publisher publisher;
 //    @CreatedDate
 //    private LocalDateTime createdAt;
 //    @LastModifiedDate

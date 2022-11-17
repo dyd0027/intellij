@@ -21,12 +21,15 @@ public class UserHistory extends BaseEntity {
     @Id // pk임
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동적으로 순차적으로 값이 증가 함
     private Long id;
-    @Column(name = "user_id")
-    private Long userId;
+//    @Column(name = "user_id",insertable = false,updatable = false)
+//    private Long userId;
 
     private String name;
 
     private String email;
+
+    @ManyToOne
+    private User user;
 //    @CreatedDate
 //    private LocalDateTime createdAt;
 //    @LastModifiedDate

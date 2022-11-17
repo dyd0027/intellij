@@ -235,5 +235,6 @@ class UserRepositoryTest {
         //위에 주석을 간다하게 할 수 있음.
         List<UserHistory> userHistories = userRepository.getByEmail("newdydgnl@mainl.com").getUserHistories();
         userHistories.forEach(System.out::println);
+        System.out.println("userHistory.getUser(): "+userHistoryRepository.findAll().get(0).getUser());
     }
 }
