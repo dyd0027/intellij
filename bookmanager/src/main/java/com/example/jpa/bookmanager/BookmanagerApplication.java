@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
-@EnableJpaAuditing // 자주쓰는 listener들의 정보가 담겨 있음.
+//@EnableJpaAuditing // 자주쓰는 listener들의 정보가 담겨 있음. -->JpaConfiguration에 따로 담아 줌.
 public class BookmanagerApplication {
 
 	public static void main(String[] args) {

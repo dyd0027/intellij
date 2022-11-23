@@ -8,5 +8,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
   datasource:
-    initialization-mode: always
+    initialization-mode: always #data.sql 찾아감.
+    url: jdbc:mysql://localhost:3306/book_manager
+    username: root
+    password: root
