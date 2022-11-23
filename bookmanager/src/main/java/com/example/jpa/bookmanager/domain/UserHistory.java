@@ -11,7 +11,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @ToString(callSuper = true)

@@ -31,11 +31,13 @@ public class User extends BaseEntity {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id",insertable = false,updatable = false) // userHistory테이블에서 userId로 FK생성됨,user테이블은 insert와 update 할 때 userHistory에 간섭x
     @ToString.Exclude
+    @Builder.Default
     private List<UserHistory> userHistories = new ArrayList<>();
 
     @OneToMany
     @JoinColumn(name = "user_id")
     @ToString.Exclude
+    @Builder.Default
     private List<Review> reviews = new ArrayList<>();
 
     @NonNull
