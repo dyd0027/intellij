@@ -45,14 +45,18 @@ public class Book extends BaseEntity{
     @ToString.Exclude
     private Publisher publisher;
 
-    @ManyToMany
+//    @ManyToMany
+    @OneToMany
+    @JoinColumn(name = "book_id")
     @ToString.Exclude
-    private List<Author> authors = new ArrayList<>();
-
-    public void addAuthor(Author... author){
-        Collections.addAll(this.authors,author);
-
+    private List<BookAndAuthor> bookAndAuthors = new ArrayList<>();
+    public void addBookAndAuthors(BookAndAuthor... bookAndAuthors){
+        Collections.addAll(this.bookAndAuthors,bookAndAuthors);
     }
+//    public void addAuthor(Author... author){
+//        Collections.addAll(this.authors,author);
+//
+//    }
 //    @CreatedDate
 //    private LocalDateTime createdAt;
 //    @LastModifiedDate
