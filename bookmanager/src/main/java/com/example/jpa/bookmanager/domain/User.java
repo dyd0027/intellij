@@ -28,13 +28,13 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동적으로 순차적으로 값이 증가 함
     private Long id;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id",insertable = false,updatable = false) // userHistory테이블에서 userId로 FK생성됨,user테이블은 insert와 update 할 때 userHistory에 간섭x
     @ToString.Exclude
     @Builder.Default
     private List<UserHistory> userHistories = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL) //cascade 사용
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     @Builder.Default
