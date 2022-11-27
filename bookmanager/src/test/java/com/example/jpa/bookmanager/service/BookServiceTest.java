@@ -20,7 +20,9 @@ class BookServiceTest {
     void transactionTest(){
         try{
             bookService.putBookAndAuthor();
-        }catch(RuntimeException e){
+            //아래의 함수는 transaction이 되질 않음.
+//            bookService.put();
+        }catch(Exception e){
             System.out.println(">>>>>>>"+e.getMessage());
         }
 

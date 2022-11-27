@@ -14,8 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookService {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
-    @Transactional
-    public void putBookAndAuthor(){
+    public void put(){
+        this.putBookAndAuthor();
+    }
+
+    @Transactional(rollbackFor = Exception.class) // @Transaction 같은경우 transactionAspectSupport.java 의 670라인의 코드를 확인하면 RunTimeException만 예외처리 되게 되어있음.하지만 이렇게 적어주면 해당 클래스도 예외 처리 됨.
+    public void putBookAndAuthor() {
         Book book = new Book();
         book.setName("용휘짱");
         bookRepository.save(book);
