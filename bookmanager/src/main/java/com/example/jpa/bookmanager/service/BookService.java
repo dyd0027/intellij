@@ -23,7 +23,7 @@ public class BookService {
         Author author = new Author();
         author.setName("용휘");
         authorRepository.save(author);
-
+        throw new RuntimeException("오류가 나서 DB commit밯생하지 않습니다라쥐");
     }
 
 }
