@@ -7,6 +7,7 @@ import com.example.jpa.bookmanager.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -29,5 +30,16 @@ public class BookService {
         authorRepository.save(author);
         throw new RuntimeException("오류가 나서 DB commit밯생하지 않습니다라쥐");
     }
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+    public void get(Long id){
+        System.out.println("1번>>>>>>> :" +bookRepository.findById(id));
+        System.out.println("2번>>>>>>> :" +bookRepository.findAll());
 
+        System.out.println("3번>>>>>>> :" +bookRepository.findById(id));
+        System.out.println("4번>>>>>>> :" +bookRepository.findAll());
+
+        Book book = bookRepository.findById(id).get();
+        book.setName("바뀔까?");
+        bookRepository.save(book);
+    }
 }
