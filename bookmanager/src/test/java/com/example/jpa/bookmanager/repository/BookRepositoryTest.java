@@ -41,6 +41,30 @@ public class BookRepositoryTest {
         System.out.println("Publisher:"+ user.getReviews().get(0).getBook().getPublisher());
 
     }
+
+    @Test
+    @Transactional
+    void bookCascadeTest(){
+        Book book = new Book();
+        book.setName("JPA!!!");
+
+        Publisher publisher = new Publisher();
+        publisher.setName("패컴");
+
+        book.setPublisher(publisher);
+        bookRepository.save(book);
+
+        System.out.println("books: "+bookRepository.findAll());
+        System.out.println("publisher: "+publisherRepository.findAll());
+
+        Book book1 = bookRepository.findById(1L).get();
+        book1.getPublisher().setName("바뀐다리?");
+        bookRepository.save(book1);
+
+        System.out.println("publisher2: "+publisherRepository.findAll());
+
+    }
+
     private void givenBookAndReview(){
 
         givenReview(givenUser(),givenBook(givenPublisher()));
