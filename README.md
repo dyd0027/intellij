@@ -17,8 +17,9 @@
 13. [interceptor](#13_interceptor)
 14. [client(generic으로 변수 주고 받기)](#14_client)
 15. [JUnit](#15_JUnit)
-16. [swagger](#16_swagger)]
+16. [swagger](#16_swagger)
 17. [restaurant](#17_restaurant)
+18. [bookmanager](#18_bookmanager)
 ---
 ### Annotation 정리
 - Controller
@@ -167,6 +168,32 @@
   - 방문횟수 추가
   ![image](https://user-images.githubusercontent.com/82923905/200270973-44fa125c-243c-4d05-9afd-8a9d548e9039.png)
   - 위시리스트 삭제
+---
+## 18_bookmanager
+##### JPA에 대하여 공부 ->오픈소스를 보는 습관 가지면 좋음. 특히 jpa 라이브러리는 가독성이 좋게 만들어진 코드들이다
+- ORM: 자바객체(entity)와 데이터베이스 사이 관계를 연결해주는거 (만약 없다면 select로 데이터들을 뽑아와서 하나하나 매핑해야함)
+- JPA(Java Persistence API): ORM의 좀더 구체적으로 기능을 정의한 스펙
+- Hibernate: JPA 인터페이스를 구현한 것
+- data.sql: Hibernate 초기화를 통해 생성된 스키마에다가 데이터를 채우기를 위해서 data.sql가 실행되기를 원한다면 application.yml(또는 properties)에 spring.jpa.defer-datasource-initialization 옵션 값을 true로 추가해주어야 한다.
+- 쿼리메소드 findBy~ 등등 이러거 전부 자동으로 제공 됨 (단, 네이밍규칙 어긋나면 런타임오류 남)
+- @Entity : 해당 객체는 Spring에서 객체로 저장됨 -> PK가 필요함 따라서, @Id 적어줘야 함
+- listener: @PrePersist, @PreUpdate를 자주 사용 -> 꼭 넣어줘야 하는 값 들을 entity에 정의 함으로서 실수를 줄임 ->이것또한 광역으로 설정 가능. MyEntityListener확인
+- @OneToMany: 1대N인 경우 1인 엔티티에 적어 줌 -> One쪽에다가 @JoinColoum(name ="One_id")적어줌으로 중간에 생성되는 테이블 없어짐
+- @ManyToOne: N대1인 경우 N인 엔티티에 적어 줌
+- @ManyToMany: N대M인 경우 양 쪽에 다 적어줌 -> @JoinColumn을 사용하지 않아야 중간다리의 테이블 생성 되므로 적으면 안됨.
+- 영속성 컨텍스트(persistence context): 엔티티를 영구 저장하는 환경 // 영속성: 지워지지 않고 영구적이다. 컨텍스트: 관리해줌
+  - EntityManager(인터페이스)를 통해 엔티티를 저장하거나 조회하면 EntityManager는 영속성 컨텍스트에 엔티티를 보관하고 관리한다.
+- EntityManager는 Cache를 가지고 있음->실제로 save메소드를 실행하는 시점에서 디비에 저장이 되지 않음->영속성컨텍스트와 실제 디비에 데이터gap이 발생.
+- JPA의 1차 캐시@Trancational 을 붙힌다면 실제 DB에서 조회하지 않고 EntityCache에서 직접 처리함
+  - 1차 캐시를 사용함으로서 성능저하를 막을 수 있음.(단, id로 조회 할 때만 캐시남음)
+- @Trancational을 사용하면 Test메소드 하나에 transactioal이 묶이게 됨
+  - 하지만 userRepository.flush()를 사용하면 바로바로 디비에 적용됨.
+  - flush를 하지 않으면 rollback이 발생되어 저장되지 않음.
+  - 영속성 컨텍스트가 flush 되는 시점
+    - flush라고 직접 명시
+    - Trancation이 끝나서 해당 쿼리가 커밋되는 시점.
+    - 복잡한 쿼리가 실행 될 때
+      - ex) user의 정보가 5개라고 가정 -> 1번의 유저만 save를 함 -> 모든 유저의 정보를 가져온다고 가정
+			->그럼 1번의 유저는 최신정보(즉, 영속성 컨텍스트안에 있음) 나머지는 예전정보(즉, DB상에 있음)
+			->이럴경우 flush를 해서 1번 유저를 실제DB에 적용시켜 merge를 시킴.
 
-  
-  
