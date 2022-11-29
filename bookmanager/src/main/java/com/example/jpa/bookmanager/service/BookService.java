@@ -10,11 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+
 @Service
 @RequiredArgsConstructor // Autowired없이 생성자 만들기
 public class BookService {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+    private final EntityManager entityManager;
     public void put(){
         this.putBookAndAuthor();
     }
@@ -30,16 +33,19 @@ public class BookService {
         authorRepository.save(author);
         throw new RuntimeException("오류가 나서 DB commit밯생하지 않습니다라쥐");
     }
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public void get(Long id){
         System.out.println("1번>>>>>>> :" +bookRepository.findById(id));
         System.out.println("2번>>>>>>> :" +bookRepository.findAll());
 
+        entityManager.clear();
+
         System.out.println("3번>>>>>>> :" +bookRepository.findById(id));
         System.out.println("4번>>>>>>> :" +bookRepository.findAll());
-
-        Book book = bookRepository.findById(id).get();
-        book.setName("바뀔까?");
-        bookRepository.save(book);
+        bookRepository.update();
+        entityManager.clear();
+//        Book book = bookRepository.findById(id).get();
+//        book.setName("바뀔까?");
+//        bookRepository.save(book);
     }
 }
