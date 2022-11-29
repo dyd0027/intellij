@@ -41,4 +41,15 @@ class BookServiceTest {
 
         System.out.println("Test>>>>>"+bookRepository.findAll());
     }
+    @Test
+    void transactionPropagationTest(){
+        try{
+            bookService.putBookAndAuthorPropagation();
+        }catch(Exception e){
+            System.out.println(">>>>>>>"+e.getMessage());
+        }
+
+        System.out.println("books: "+bookRepository.findAll());
+        System.out.println("author: "+authorRepository.findAll());
+    }
 }

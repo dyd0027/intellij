@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -18,6 +19,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final EntityManager entityManager;
+    private final AuthorService authorService;
     public void put(){
         this.putBookAndAuthor();
     }
@@ -47,5 +49,19 @@ public class BookService {
 //        Book book = bookRepository.findById(id).get();
 //        book.setName("바뀔까?");
 //        bookRepository.save(book);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED) // @Transaction 같은경우 transactionAspectSupport.java 의 670라인의 코드를 확인하면 RunTimeException만 예외처리 되게 되어있음.하지만 이렇게 적어주면 해당 클래스도 예외 처리 됨.
+    public void putBookAndAuthorPropagation() {
+        Book book = new Book();
+        book.setName("용휘짱");
+        bookRepository.save(book);
+
+        try{
+            authorService.putAuthor();
+        }catch (RuntimeException e){
+            System.out.println(e.getMessage());
+        }
+       throw new RuntimeException("오오 과연?!");
     }
 }
