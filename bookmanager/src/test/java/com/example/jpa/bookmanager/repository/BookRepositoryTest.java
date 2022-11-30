@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 
 @SpringBootTest
 public class BookRepositoryTest {
@@ -85,6 +86,11 @@ public class BookRepositoryTest {
         bookRepository.findAllByDeletedFalse().forEach(System.out::println);
         bookRepository.findByCategoryIsNullAndDeletedFalse().forEach(System.out::println);
     }
+    @Test
+    void queryTest(){
+        System.out.println("긴 쿼리이름: "+bookRepository.findByCategoryIsNullAndNameEqualsAndCreatedAtGreaterThanEqualAndUpdatedAtGreaterThanEqual("bookName", LocalDateTime.now().minusDays(1),LocalDateTime.now().minusDays(1)));
+    }
+
     private void givenBookAndReview(){
 
         givenReview(givenUser(),givenBook(givenPublisher()));
