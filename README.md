@@ -1,5 +1,5 @@
 # intellij
-#### 혼자 SptingBoot를 공부한 내용 정리
+#### 혼자 SpringBoot를 공부한 내용 정리
 
 ## 목차
 1. [get](#1_get)
@@ -19,7 +19,7 @@
 15. [JUnit](#15_JUnit)
 16. [swagger](#16_swagger)
 17. [restaurant](#17_restaurant)
-18. [bookmanager](#18_bookmanager)
+18. [JPA](#18_JPA)
 ---
 ### Annotation 정리
 - Controller
@@ -169,8 +169,9 @@
   ![image](https://user-images.githubusercontent.com/82923905/200270973-44fa125c-243c-4d05-9afd-8a9d548e9039.png)
   - 위시리스트 삭제
 ---
-## 18_bookmanager
+## 18_JPA
 ##### JPA에 대하여 공부 ->오픈소스를 보는 습관 가지면 좋음. 특히 jpa 라이브러리는 가독성이 좋게 만들어진 코드들이다
+##### bookmanager 프로젝트에서 확인 가능
 - ORM: 자바객체(entity)와 데이터베이스 사이 관계를 연결해주는거 (만약 없다면 select로 데이터들을 뽑아와서 하나하나 매핑해야함)
 - JPA(Java Persistence API): ORM의 좀더 구체적으로 기능을 정의한 스펙
 - Hibernate: JPA 인터페이스를 구현한 것
@@ -186,7 +187,7 @@
 - EntityManager는 Cache를 가지고 있음->실제로 save메소드를 실행하는 시점에서 디비에 저장이 되지 않음->영속성컨텍스트와 실제 디비에 데이터gap이 발생.
 - JPA의 1차 캐시@Trancational 을 붙힌다면 실제 DB에서 조회하지 않고 EntityCache에서 직접 처리함
   - 1차 캐시를 사용함으로서 성능저하를 막을 수 있음.(단, id로 조회 할 때만 캐시남음)
-- @Trancational을 사용하면 Test메소드 하나에 transactioal이 묶이게 됨
+- @Trancational을 사용하면 Test메소드 하나에 transactioa이 묶이게 됨
   - 하지만 userRepository.flush()를 사용하면 바로바로 디비에 적용됨.
   - flush를 하지 않으면 rollback이 발생되어 저장되지 않음.
   - 영속성 컨텍스트가 flush 되는 시점
@@ -196,4 +197,7 @@
       - ex) user의 정보가 5개라고 가정 -> 1번의 유저만 save를 함 -> 모든 유저의 정보를 가져온다고 가정
 			->그럼 1번의 유저는 최신정보(즉, 영속성 컨텍스트안에 있음) 나머지는 예전정보(즉, DB상에 있음)
 			->이럴경우 flush를 해서 1번 유저를 실제DB에 적용시켜 merge를 시킴.
-
+- @Trancational안에 있는 메소드는 그 안에 있는 모든 crud가 하나의 trancation안에서 움직임
+  - Exception같은경우 트랜잭션과 무관함 그래서 예외처리할 때 exception은 개발한 개발자 책임임...그래서runtime같은 예외처리로 걸러줘야 함.
+    - transcationAspectSupport.java 670의 코드를 보면 확인 가능.
+- bean에 등록된 메소드에서 다른 bean에 등록된 @Trancational이 붙은 함수를 호출 시 annotation이 먹지 않음.
