@@ -63,8 +63,28 @@ public class BookRepositoryTest {
 
         System.out.println("publisher2: "+publisherRepository.findAll());
 
-    }
+        Book book2 = bookRepository.findById(1L).get();
+        book2.setPublisher(null);
+        bookRepository.save(book2);
+        System.out.println("books: "+bookRepository.findAll());
+        System.out.println("publisher: "+publisherRepository.findAll());
 
+    }
+    @Test
+    void bookRemoveCascadeTest(){
+        bookRepository.deleteById(1L);
+
+        System.out.println("books:: "+bookRepository.findAll());
+        System.out.println("publisher:: "+publisherRepository.findAll());
+
+        bookRepository.findAll().forEach(book -> System.out.println(book.getPublisher()));
+    }
+    @Test
+    void softDelete(){
+
+        bookRepository.findAllByDeletedFalse().forEach(System.out::println);
+        bookRepository.findByCategoryIsNullAndDeletedFalse().forEach(System.out::println);
+    }
     private void givenBookAndReview(){
 
         givenReview(givenUser(),givenBook(givenPublisher()));

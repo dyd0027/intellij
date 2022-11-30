@@ -14,4 +14,7 @@ insert into users(id,name,email,created_at,updated_at) values(4,'hwi','hwi0027@g
 --call next value for hibernate_sequence;
 insert into users(id,name,email,created_at,updated_at) values(5,'yh','yh0027@another.com',now(),now());
 
-
+insert into publisher(`id`,`name`) values(1,'용휘회사');
+insert into book(`id`,`name`,`publisher_id`,`deleted`) values(1,'bookName',1,false);
+insert into book(`id`,`name`,`publisher_id`,`deleted`) values(2,'nameBook',1,false);
+insert into book(`id`,`name`,`publisher_id`,`deleted`) values(3,'name3',1,true);

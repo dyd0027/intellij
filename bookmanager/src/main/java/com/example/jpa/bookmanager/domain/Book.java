@@ -2,6 +2,7 @@ package com.example.jpa.bookmanager.domain;
 
 import com.example.jpa.bookmanager.domain.listener.Auditable;
 import lombok.*;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -19,6 +20,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 //@EntityListeners(value = AuditingEntityListener.class)
+@Where(clause = "deleted = false") //모든 쿼리 실행시 where절에 저게 붙음.
 public class Book extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,10 +43,11 @@ public class Book extends BaseEntity{
     @ToString.Exclude
     private List<Review> reviews = new ArrayList<>();
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE})
     @ToString.Exclude
     private Publisher publisher;
 
+    private boolean deleted;
 //    @ManyToMany
     @OneToMany
     @JoinColumn(name = "book_id")
