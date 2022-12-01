@@ -7,6 +7,7 @@ import com.example.jpa.bookmanager.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -97,6 +98,12 @@ public class BookRepositoryTest {
                 "bookName",
                 LocalDateTime.now().minusDays(1),
                 LocalDateTime.now().minusDays(1)));
+        bookRepository.findByBookNameAndCategory().forEach(b -> System.out.println(b.getName()+" : "+b.getCategory()));
+
+        bookRepository.findByBookNameAndCategory(PageRequest.of(1,1))
+                .forEach(bookNameAndCategory -> System.out.println(bookNameAndCategory.getName()+":"+bookNameAndCategory.getCategory()));
+        bookRepository.findByBookNameAndCategory(PageRequest.of(0,1))
+                .forEach(bookNameAndCategory -> System.out.println(bookNameAndCategory.getName()+":"+bookNameAndCategory.getCategory()));
     }
 
     private void givenBookAndReview(){
