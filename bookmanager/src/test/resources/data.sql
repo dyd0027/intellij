@@ -16,8 +16,8 @@ insert into users(id,name,email,created_at,updated_at) values(5,'yh','yh0027@ano
 
 insert into publisher(`id`,`name`) values(1,'용휘회사');
 insert into book(`id`,`name`,`publisher_id`,`deleted`) values(1,'bookName',1,false);
-insert into book(`id`,`name`,`publisher_id`,`deleted`) values(2,'bookName',1,false);
-insert into book(`id`,`name`,`publisher_id`,`deleted`) values(3,'bookName',1,false);
+insert into book(`id`,`name`,`publisher_id`,`deleted`) values(2,'bookName2',1,false);
+insert into book(`id`,`name`,`publisher_id`,`deleted`) values(3,'bookName3',1,true);
 --insert into book(`id`,`name`,`publisher_id`,`deleted`,`created_at`,`updated_at`) values(1,'bookName',1,false,now(),now());
 --insert into book(`id`,`name`,`publisher_id`,`deleted`,`created_at`,`updated_at`) values(2,'nameBook',1,false,now(),now());
 --insert into book(`id`,`name`,`publisher_id`,`deleted`,`created_at`,`updated_at`) values(3,'name3',1,true,now(),now());

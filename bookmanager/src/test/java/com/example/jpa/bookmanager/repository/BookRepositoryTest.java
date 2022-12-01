@@ -88,7 +88,15 @@ public class BookRepositoryTest {
     }
     @Test
     void queryTest(){
-        System.out.println("긴 쿼리이름: "+bookRepository.findByCategoryIsNullAndNameEqualsAndCreatedAtGreaterThanEqualAndUpdatedAtGreaterThanEqual("bookName", LocalDateTime.now().minusDays(1),LocalDateTime.now().minusDays(1)));
+        System.out.println("긴 쿼리이름: "+
+                bookRepository.findByCategoryIsNullAndNameEqualsAndCreatedAtGreaterThanEqualAndUpdatedAtGreaterThanEqual(
+                "bookName",
+                LocalDateTime.now().minusDays(1),
+                LocalDateTime.now().minusDays(1)));
+        System.out.println("findByNameRecently: "+ bookRepository.findByNameRecently(
+                "bookName",
+                LocalDateTime.now().minusDays(1),
+                LocalDateTime.now().minusDays(1)));
     }
 
     private void givenBookAndReview(){
