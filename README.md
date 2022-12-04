@@ -201,3 +201,20 @@
   - Exception같은경우 트랜잭션과 무관함 그래서 예외처리할 때 exception은 개발한 개발자 책임임...그래서runtime같은 예외처리로 걸러줘야 함.
     - transcationAspectSupport.java 670의 코드를 보면 확인 가능.
 - bean에 등록된 메소드에서 다른 bean에 등록된 @Trancational이 붙은 함수를 호출 시 annotation이 먹지 않음.
+- Isolation(격리성): 경리성은 동시에 실행되는 트랜잭션이 서로에게 영향을 미치지 않도록 격리힌다.
+	- READ UNCOMMITTED: 커밋되지 않는 읽기 -> 데이터 정확성에 문제가 있음.
+	- READ COMMITTEDl: 커밋된 읽기
+	- REPEATABLE READ: 반복 가능한 읽기
+	- SERIALRZABLE: 직렬화 기능 -> 데이터 정확성은 좋으나 웨이팅이 많이 발생해서 성능에 문제가 있음.
+- Propagation: 트랜잭션의 영역, 바운더리를 지정하기 위한 설정.
+	- ![image](https://user-images.githubusercontent.com/82923905/205480070-0b00deb8-ef1c-4cc1-9374-6526b4cc0d4a.png)
+- Cascade:  영속성 전이 ->default는 빈 값이라서 값을 채워 넣어야 함.
+	- @OneToMany, @OneToOne, @ManyToOne에서 사용 가능
+	- CascadeType.PERSIST: insert할 때 해당 컬럼도 insert 되게끔.
+	- CascadeType.MERGE: update할 때
+- @Where(clause = "deleted = false"): 모든 쿼리 실행 시 where 절에 저게 들어감.
+- @Query: JPQL을 사용하며 실제 DB에서 사용하는 컬럼명이 아닌 자바에 직접 만든 엔티티에서 정의한 이름을 사용함.
+	- nativeQuery를 사용하면 JPA쿼리에서 사용되는 엔티티 사용 불가
+		- 따라서 @Trancational도 적어줘야 함.
+		- @Nodifying을 사용해야 update쿼리가 실행 됨.
+	
