@@ -3,6 +3,7 @@ package com.example.jpa.bookmanager.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -21,9 +22,15 @@ public class Review extends BaseEntity{
 
     private float score;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY) // ToString을 제외했는데도 쿼리에서는 users가 포함되어 실행 되므로 fetch타입을 lazy로 바꿔준다.
+    @ToString.Exclude
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Book book;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "review_id")
+    private List<Comment> comments;
 }
