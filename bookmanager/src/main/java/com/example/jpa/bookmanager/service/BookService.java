@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor // Autowired없이 생성자 만들기
@@ -63,5 +64,13 @@ public class BookService {
             System.out.println(e.getMessage());
         }
        throw new RuntimeException("오오 과연?!");
+    }
+    @Transactional
+    public List<Book> getAll(){
+        List<Book> books = bookRepository.findAll();
+
+        books.forEach(System.out::println);
+
+        return books;
     }
 }

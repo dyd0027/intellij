@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 
 public interface BookRepository extends JpaRepository<Book,Long> {
@@ -39,4 +40,7 @@ public interface BookRepository extends JpaRepository<Book,Long> {
     @Modifying
     @Query(value = "update book set category='IT2'",nativeQuery = true)
     int updateCategories();
+
+    @Query(value = "select * from book order by id desc limit 1",nativeQuery = true)
+    Map<String, Object> findRawRecord();
 }

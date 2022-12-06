@@ -1,6 +1,8 @@
 package com.example.jpa.bookmanager.domain;
 
+import com.example.jpa.bookmanager.domain.converter.BookStatusConverter;
 import com.example.jpa.bookmanager.domain.listener.Auditable;
+import com.example.jpa.bookmanager.repository.dto.BookStatus;
 import lombok.*;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
@@ -48,6 +50,9 @@ public class Book extends BaseEntity{
     private Publisher publisher;
 
     private boolean deleted;
+    @Convert(converter = BookStatusConverter.class)
+    private BookStatus status; //판매 상태
+
 //    @ManyToMany
     @OneToMany
     @JoinColumn(name = "book_id")

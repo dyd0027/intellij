@@ -4,6 +4,7 @@ import com.example.jpa.bookmanager.domain.Book;
 import com.example.jpa.bookmanager.domain.Publisher;
 import com.example.jpa.bookmanager.domain.Review;
 import com.example.jpa.bookmanager.domain.User;
+import com.example.jpa.bookmanager.repository.dto.BookStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -119,6 +120,16 @@ public class BookRepositoryTest {
 
         System.out.println("affectedRow : "+bookRepository.updateCategories());
         System.out.println(bookRepository.findAll());
+    }
+    @Test
+    void convertorTest(){
+        bookRepository.findAll().forEach(System.out::println);
+        Book book = new Book();
+        book.setName("졸려요");
+        book.setStatus(new BookStatus(300));
+        bookRepository.save(book);
+
+        System.out.println(bookRepository.findRawRecord().values());
     }
     private void givenBookAndReview(){
 

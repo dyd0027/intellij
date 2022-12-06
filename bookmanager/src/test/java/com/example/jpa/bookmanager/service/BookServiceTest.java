@@ -52,4 +52,9 @@ class BookServiceTest {
         System.out.println("books: "+bookRepository.findAll());
         System.out.println("author: "+authorRepository.findAll());
     }
+    @Test
+    void converterErrorTest(){
+        bookService.getAll();
+        bookRepository.findAll().forEach(System.out::println);
+    }
 }
