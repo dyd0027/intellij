@@ -1,5 +1,6 @@
 package com.example.jpa.bookmanager.repository;
 
+import com.example.jpa.bookmanager.domain.Address;
 import com.example.jpa.bookmanager.domain.Gender;
 import com.example.jpa.bookmanager.domain.User;
 import com.example.jpa.bookmanager.domain.UserHistory;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,6 +26,8 @@ class UserRepositoryTest {
     private UserRepository userRepository;
     @Autowired
     private UserHistoryRepository userHistoryRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     @Test
     //@Transactional
@@ -237,5 +241,32 @@ class UserRepositoryTest {
         List<UserHistory> userHistories = userRepository.getByEmail("newdydgnl@mainl.com").getUserHistories();
         userHistories.forEach(System.out::println);
         System.out.println("userHistory.getUser(): "+userHistoryRepository.findAll().get(0).getUser());
+    }
+    @Test
+    void embedTest(){
+        userRepository.findAll().forEach(System.out::println);
+        User user = new User();
+        user.setName("이서연바보");
+        user.setHomeAddress(new Address("서울시","성북구","정릉로52실49","06801"));
+        user.setCompanyAddress(new Address("서울시","송파구","송파파49","06822"));
+        userRepository.save(user);
+
+        User user1 = new User();
+        user1.setName("권권용용휘");
+        user1.setUserHistories(null);
+        user1.setCompanyAddress(null);
+
+        User user2 = new User();
+        user2.setName("dyddydgnl");
+        user2.setHomeAddress(new Address());
+        user2.setCompanyAddress(new Address());
+
+        userRepository.saveAll(Lists.newArrayList(user1,user2));
+        entityManager.clear();
+
+        userRepository.findAll().forEach(System.out::println);
+        userHistoryRepository.findAll().forEach(System.out::println );
+
+        userRepository.findAllRawRecord().forEach(a-> System.out.println(a.values()));
     }
 }
