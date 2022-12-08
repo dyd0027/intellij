@@ -1,3 +1,4 @@
+
 buildscript {
     ext {
         spring = "2.4.1"
@@ -10,17 +11,17 @@ buildscript {
     dependencies {
         classpath("$boot:spring-boot-gradle-plugin:$spring")
     }
-
 }
 
-allprojects{
+allprojects {
     group = "com.sp.fc"
     version = "1.0.0"
 
 }
 
-subprojects{
-    apply plugin:"java"
+subprojects {
+
+    apply plugin: "java"
     apply plugin: boot
     apply plugin: "io.spring.dependency-management"
     apply plugin: "idea"
@@ -30,14 +31,14 @@ subprojects{
     }
 
     configurations {
-//        developmentOnly
+        developmentOnly
         runtimeClasspath {
             extendsFrom developmentOnly
         }
     }
 
     dependencies {
-//        developmentOnly("$boot:spring-boot-devtools")
+        developmentOnly("$boot:spring-boot-devtools")
         implementation "$boot:spring-boot-starter-security"
         implementation 'com.fasterxml.jackson.core:jackson-annotations'
 
@@ -54,6 +55,7 @@ subprojects{
     }
 
 }
+
 
 ["comp", "web"].each {
     def subProjectDir = new File(projectDir, it)
