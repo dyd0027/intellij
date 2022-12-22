@@ -217,4 +217,17 @@
 	- nativeQuery를 사용하면 JPA쿼리에서 사용되는 엔티티 사용 불가
 		- 따라서 @Trancational도 적어줘야 함.
 		- @Nodifying을 사용해야 update쿼리가 실행 됨.
-	
+- converter
+	- converter하는 법 : 클래스 생성 -> 클래스컨버스 생성 후 implements ArributeConverter<클래스,원하는 자료형> -> 엔티티에 원하는 클래스 선언 후 @Convert, -> Converter가서 @Converter 적어 줌.
+		- @Converter: converter로 등록   ->  autoApply = true : 해당 객체를 불러올 때 자동적으로 매칭 됨. 그게 아니라면 밑에 @Convert 사용
+		- @Convert: converter를 가지고 올 수 있음 @Convert(converter=xxxx.class)
+- embeded
+	- embeded하는 법: 클래스 생성 -> 클래스에 @Embededable 작성 -> 엔티티에서 클래스 선언 후 @Embeded 작성
+		- 이러면 해당 엔티티 테이블에 embeded클래스에 있는 변수명대로 컬럼이 생김
+	- Addess같은 경우 집주소, 회사주소가 있으므로 @AttributeOverrides사용 (User.java 확인)
+- N+1문제: 쿼리가 많이 실행 됨
+	- fetch : eager,lazy 타입이 있음 -> eager는 모든 쿼리 실행, lazy는 필요할 때만 퀴리 실행 
+	- @ManyToOne, @OnetoOne : defaultFetch은 eager 타입, 나머지는 lazy
+	- 해결방법1: 쿼리를 커스텀 해서 사용. ->findAll()같은 함수를 사용하는게 아니라.
+	- 해결방법2: EntityGraph 사용. -> 작성 된 커리문 위에 @EntityGraph(attributePaths="원하는 컬럼")하면 됨.
+- JPA는 insert를 하거나 update를 할 때 모든 컬럼값을 바꿔주지만 @DynamicInsert,@DynamicUpdate를 통해 변경된 값만 넣어 줄 수 있음.
