@@ -13,17 +13,19 @@ import java.util.Set;
 
 @Component
 public class StudentManager implements AuthenticationProvider, InitializingBean {
-    private HashMap<String,Student> studentDB = new HashMap<>();
+
+    private HashMap<String, Student> studentDB = new HashMap<>();
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        StudentAuthenticationToken token = (StudentAuthenticationToken)authentication;
+        StudentAuthenticationToken token = (StudentAuthenticationToken) authentication;
         if(studentDB.containsKey(token.getCredentials())){
             Student student = studentDB.get(token.getCredentials());
             return StudentAuthenticationToken.builder()
                     .principal(student)
                     .details(student.getUsername())
                     .authenticated(true)
+                    .authorities(student.getRole())
                     .build();
         }
         return null;
@@ -37,11 +39,11 @@ public class StudentManager implements AuthenticationProvider, InitializingBean 
     @Override
     public void afterPropertiesSet() throws Exception {
         Set.of(
-                new Student("yong","용휘",Set.of(new SimpleGrantedAuthority("ROLE_STUDENT"))),
-                new Student("in","인수",Set.of(new SimpleGrantedAuthority("ROLE_STUDENT"))),
-                new Student("sy","서연",Set.of(new SimpleGrantedAuthority("ROLE_STUDENT")))
+                new Student("yong", "용휘", Set.of(new SimpleGrantedAuthority("ROLE_STUDENT"))),
+                new Student("in", "인수", Set.of(new SimpleGrantedAuthority("ROLE_STUDENT"))),
+                new Student("sy", "서연", Set.of(new SimpleGrantedAuthority("ROLE_STUDENT")))
         ).forEach(s->
-                studentDB.put(s.getId(),s)
+            studentDB.put(s.getId(), s)
         );
     }
 }

@@ -15,11 +15,12 @@ import java.util.Set;
 
 @Component
 public class TeacherManager implements AuthenticationProvider, InitializingBean {
+
     private HashMap<String, Teacher> teacherDB = new HashMap<>();
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        TeacherAuthenticationToken token = (TeacherAuthenticationToken)authentication;
+        TeacherAuthenticationToken token = (TeacherAuthenticationToken) authentication;
         if(teacherDB.containsKey(token.getCredentials())){
             Teacher teacher = teacherDB.get(token.getCredentials());
             return TeacherAuthenticationToken.builder()
@@ -39,11 +40,9 @@ public class TeacherManager implements AuthenticationProvider, InitializingBean 
     @Override
     public void afterPropertiesSet() throws Exception {
         Set.of(
-                new Teacher("yong2","용휘",Set.of(new SimpleGrantedAuthority("ROLE_TEACHER"))),
-                new Teacher("in2","인수",Set.of(new SimpleGrantedAuthority("ROLE_TEACHER"))),
-                new Teacher("sy2","서연",Set.of(new SimpleGrantedAuthority("ROLE_TEACHER")))
+                new Teacher("yong2", "용휘선생님", Set.of(new SimpleGrantedAuthority("ROLE_TEACHER")))
         ).forEach(s->
-                teacherDB.put(s.getId(),s)
+            teacherDB.put(s.getId(), s)
         );
     }
 }

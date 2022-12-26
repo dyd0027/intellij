@@ -12,8 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity(debug = true)
-@EnableGlobalMethodSecurity(prePostEnabled = true) // 학생, 선생의 각각의 권한을 체크
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
 
     private final StudentManager studentManager;
     private final TeacherManager teacherManager;
@@ -23,27 +24,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.teacherManager = teacherManager;
     }
 
+
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(studentManager);
         auth.authenticationProvider(teacherManager);
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         CustomLoginFilter filter = new CustomLoginFilter(authenticationManager());
         http
                 .authorizeRequests(request->
-                        request.antMatchers("/","/login").permitAll()
-                                .anyRequest().authenticated()
+                        request.antMatchers("/", "/login").permitAll()
+                        .anyRequest().authenticated()
                 )
-//                .formLogin(
-//                        login-> login.loginPage("/login")
-//                                .permitAll()
-//                                .defaultSuccessUrl("/",false)
-//                                .failureUrl("/login-error")
-//                )
+                .formLogin(
+                        login->login.loginPage("/login")
+                        .permitAll()
+                        .defaultSuccessUrl("/", false)
+                        .failureUrl("/login-error")
+                )
                 .addFilterAt(filter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout->logout.logoutSuccessUrl("/"))
                 .exceptionHandling(e->e.accessDeniedPage("/access-denied"))

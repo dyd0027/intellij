@@ -33,6 +33,7 @@ public class HomeController {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
+
     @GetMapping("/access-denied")
     public String accessDenied(){
         return "accessDenied";

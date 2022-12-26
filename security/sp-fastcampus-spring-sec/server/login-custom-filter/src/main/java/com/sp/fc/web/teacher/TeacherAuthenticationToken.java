@@ -29,6 +29,7 @@ public class TeacherAuthenticationToken implements Authentication {
 
     @Override
     public String getName() {
-        return principal ==null ? "":principal.getUsername();
+        return principal == null ? "" : principal.getUsername();
     }
+
 }
