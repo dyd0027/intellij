@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class RequestInfo {
-    private String remoteIp;
-    private String  sessionId;
+
     private LocalDateTime loginTime;
+    private String remoteIp;
+    private String sessionId;
 }

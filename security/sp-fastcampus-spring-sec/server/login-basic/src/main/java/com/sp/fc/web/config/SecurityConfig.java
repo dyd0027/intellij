@@ -1,6 +1,5 @@
 package com.sp.fc.web.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -12,13 +11,18 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private CustomAuthDetails customAuthDetails;
+    private final CustomAuthDetail customAuthDetail;
+
+    public SecurityConfig(CustomAuthDetail customAuthDetail) {
+        this.customAuthDetail = customAuthDetail;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -30,12 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 .password("1111")
                                 .roles("USER")
                 ).withUser(
-                        User.withDefaultPasswordEncoder()
-                                .username("admin")
-                                .password("admin")
-                                .roles("ADMIN")
-                );
-
+                User.withDefaultPasswordEncoder()
+                        .username("admin")
+                        .password("2222")
+                        .roles("ADMIN")
+        );
     }
 
     @Bean
@@ -48,28 +51,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests(request->{
-                    request
-                            .antMatchers("/").permitAll()
+                .authorizeRequests(request->
+                    request.antMatchers("/").permitAll()
                             .anyRequest().authenticated()
-                            ;
-                })
-                .formLogin(
-                        login -> login.loginPage("/login")
-                                .permitAll()
-                                .defaultSuccessUrl("/",false)
-                                .failureUrl("/login-error")
-                                .authenticationDetailsSource(customAuthDetails)
                 )
-                .logout(logout -> logout.logoutSuccessUrl("/"))
-                .exceptionHandling(exception->exception.accessDeniedPage("/access-denied"))
-        ;
+                .formLogin(login->
+                        login.loginPage("/login")
+                        .loginProcessingUrl("/loginprocess")
+                        .permitAll()
+                        .defaultSuccessUrl("/", false)
+                        .authenticationDetailsSource(customAuthDetail)
+                        .failureUrl("/login-error")
+                )
+                .logout(logout->
+                        logout.logoutSuccessUrl("/"))
+                .exceptionHandling(error->
+                        error.accessDeniedPage("/access-denied")
+                )
+                ;
     }
+
     @Override
-    public void configure(WebSecurity web) throws Exception{
+    public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .requestMatchers(
-                        PathRequest.toStaticResources().atCommonLocations() //resource->static하위에 있는 모든 파일이 무시됨.
-                );
+                        PathRequest.toStaticResources().atCommonLocations()
+                )
+        ;
     }
+
 }
