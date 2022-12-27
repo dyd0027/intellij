@@ -4,11 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MultiChainProxyApplication {
+public class MultiChainProxyApp {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(MultiChainProxyApplication.class, args);
+        SpringApplication.run(MultiChainProxyApp.class, args);
     }
 
 }
