@@ -231,3 +231,8 @@
 	- 해결방법1: 쿼리를 커스텀 해서 사용. ->findAll()같은 함수를 사용하는게 아니라.
 	- 해결방법2: EntityGraph 사용. -> 작성 된 커리문 위에 @EntityGraph(attributePaths="원하는 컬럼")하면 됨.
 - JPA는 insert를 하거나 update를 할 때 모든 컬럼값을 바꿔주지만 @DynamicInsert,@DynamicUpdate를 통해 변경된 값만 넣어 줄 수 있음.
+- dirtyCheck :  https://jojoldu.tistory.com/415 (참조)
+	- 해결방법 @Trancational(readOnly=true)
+- security: 개인정보 보호때문에 필요함
+	- 인증: 해당 웹사이트에 접속이 가능한지
+	- 권한: 어느 권한까지 가지고 있는지
