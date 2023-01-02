@@ -8,15 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import javax.persistence.Entity;
 
 @SpringBootApplication(scanBasePackages = {
-        "com.sp.fc.user",
+        "com.sp.fc.config",
         "com.sp.fc.web"
-})
-@EntityScan(basePackages = {
-        "com.sp.fc.user.domain"
-
-})
-@EnableJpaRepositories(basePackages = {
-        "com.sp.fc.user.repository"
 })
 public class UserDetailsTestApplication {
 
