@@ -236,3 +236,6 @@
 - security: 개인정보 보호때문에 필요함
 	- 인증: 해당 웹사이트에 접속이 가능한지
 	- 권한: 어느 권한까지 가지고 있는지
+- extends WebSecurityConfigAdater를 해주고 써야함. SecurityConfig.java 확인
+- Security는 filter의 위치에서 인증 및 권한을 걸러 줌.->굉장히 많은 securityFilter가 존재함.
+	- @EnableWebSecurity(debug = true)하면 어떤 필터들을 타고 들어왔는지 보여짐.
